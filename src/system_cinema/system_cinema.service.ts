@@ -1,25 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import {PrismaClient} from '@prisma/client'
+import { PrismaClient } from '@prisma/client';
 import { Response } from 'express';
 import { errorCode, successCode } from 'src/payload/response/DataResponse';
-import { userDto } from '../DTO/user.dto';
+
 @Injectable()
-export class UserService {
+export class SystemCinemaService {
     private prisma: PrismaClient = new PrismaClient();
 
-     async getUser(hoTen:string): Promise<userDto[]> {
-        return await this.prisma.user.findMany({
-            where:{
-                name:{
-                    contains: hoTen
-                }
-            }
-        });
-    }
-
-    async getAllUser(res: Response):Promise<any>{
+    async getAllSystemCinema(res: Response):Promise<any>{
         try{
-            let data = await this.prisma.user.findMany()
+            let data = await this.prisma.he_thong_rap.findMany()
             return successCode(res,"Successfully retrieved data",data);
         }
         catch(err){ 
@@ -27,9 +17,9 @@ export class UserService {
         }
     }
 
-    async createUser(res: Response,user:userDto):Promise<any>{
+    async createSystemCinema(res: Response,system:systemCinemaDTO):Promise<any>{
         try{
-            await this.prisma.user.create({data:user})
+            await this.prisma.he_thong_rap.create({data:system})
             return successCode(res,"Successful data generation!",null);
         }
         catch(err){
@@ -38,10 +28,10 @@ export class UserService {
         }
     }
 
-    async deleteUser(res: Response,idParam:any):Promise<any>{
+    async deleteSystemCinema(res: Response,idParam:any):Promise<any>{
         try{
-            await this.prisma.user.delete({where:{
-                id:Number(idParam)
+            await this.prisma.he_thong_rap.delete({where:{
+                ma_htr:Number(idParam)
             }});;
             return successCode(res,"Delete data successfully!",null);
         }
@@ -51,11 +41,11 @@ export class UserService {
         }
     }
 
-    async updateUser(res: Response,idParam:string,user:userDto):Promise<any>{
+    async updateSystemCinema(res: Response,idParam:string,system:systemCinemaDTO):Promise<any>{
         try{
-            await this.prisma.user.update({where:{
-                id:Number(idParam)
-            },data:user})
+            await this.prisma.he_thong_rap.update({where:{
+                ma_htr:Number(idParam)
+            },data:system})
             return successCode(res,"Update data successfully",null);
         }
         catch(err){
@@ -64,11 +54,11 @@ export class UserService {
         }
     }
 
-    async getDetailUser(res: Response,idParam:number):Promise<any>{
+    async getDetailSystemCinema(res: Response,idParam:number):Promise<any>{
         try{
-            let data = await this.prisma.user.findMany({
+            let data = await this.prisma.he_thong_rap.findMany({
                 where:{
-                    id:Number(idParam)
+                    ma_htr:Number(idParam)
                 }
             })
             return successCode(res,"Successfully retrieved data",data);
@@ -78,11 +68,11 @@ export class UserService {
         }
     }
 
-    async searchUser(res: Response,key:string):Promise<any>{
+    async searchSystemCinema(res: Response,key:string):Promise<any>{
         try{
-            let data = await this.prisma.user.findMany({
+            let data = await this.prisma.he_thong_rap.findMany({
                 where:{
-                    name:{
+                    ten_htr:{
                         contains:key
                     }
                 }

@@ -1,25 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import {PrismaClient} from '@prisma/client'
-import { Response } from 'express';
+import { PrismaClient } from '@prisma/client';
 import { errorCode, successCode } from 'src/payload/response/DataResponse';
-import { userDto } from '../DTO/user.dto';
+import { Response } from 'express';
+
 @Injectable()
-export class UserService {
+export class ShowtimeService {
     private prisma: PrismaClient = new PrismaClient();
 
-     async getUser(hoTen:string): Promise<userDto[]> {
-        return await this.prisma.user.findMany({
-            where:{
-                name:{
-                    contains: hoTen
-                }
-            }
-        });
-    }
-
-    async getAllUser(res: Response):Promise<any>{
+    async getAllShowtime(res: Response):Promise<any>{
         try{
-            let data = await this.prisma.user.findMany()
+            let data = await this.prisma.show_time.findMany()
             return successCode(res,"Successfully retrieved data",data);
         }
         catch(err){ 
@@ -27,9 +17,9 @@ export class UserService {
         }
     }
 
-    async createUser(res: Response,user:userDto):Promise<any>{
+    async createShowtime(res: Response,showtime:showtimeDTO):Promise<any>{
         try{
-            await this.prisma.user.create({data:user})
+            await this.prisma.show_time.create({data:showtime})
             return successCode(res,"Successful data generation!",null);
         }
         catch(err){
@@ -38,10 +28,10 @@ export class UserService {
         }
     }
 
-    async deleteUser(res: Response,idParam:any):Promise<any>{
+    async deleteShowtime(res: Response,idParam:any):Promise<any>{
         try{
-            await this.prisma.user.delete({where:{
-                id:Number(idParam)
+            await this.prisma.show_time.delete({where:{
+                id_showtime:Number(idParam)
             }});;
             return successCode(res,"Delete data successfully!",null);
         }
@@ -51,11 +41,11 @@ export class UserService {
         }
     }
 
-    async updateUser(res: Response,idParam:string,user:userDto):Promise<any>{
+    async updateShowtime(res: Response,idParam:string,showtime:showtimeDTO):Promise<any>{
         try{
-            await this.prisma.user.update({where:{
-                id:Number(idParam)
-            },data:user})
+            await this.prisma.show_time.update({where:{
+                id_showtime:Number(idParam)
+            },data:showtime})
             return successCode(res,"Update data successfully",null);
         }
         catch(err){
@@ -64,11 +54,11 @@ export class UserService {
         }
     }
 
-    async getDetailUser(res: Response,idParam:number):Promise<any>{
+    async getDetailShowtime(res: Response,idParam:number):Promise<any>{
         try{
-            let data = await this.prisma.user.findMany({
+            let data = await this.prisma.show_time.findMany({
                 where:{
-                    id:Number(idParam)
+                    id_showtime:Number(idParam)
                 }
             })
             return successCode(res,"Successfully retrieved data",data);
@@ -78,13 +68,11 @@ export class UserService {
         }
     }
 
-    async searchUser(res: Response,key:string):Promise<any>{
+    async searchShowtime(res: Response,key:string):Promise<any>{
         try{
-            let data = await this.prisma.user.findMany({
+            let data = await this.prisma.show_time.findMany({
                 where:{
-                    name:{
-                        contains:key
-                    }
+                    showtime:key
                 }
             })
             return successCode(res,"Successfully retrieved data",data);

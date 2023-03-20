@@ -1,25 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import {PrismaClient} from '@prisma/client'
-import { Response } from 'express';
+import { PrismaClient } from '@prisma/client';
 import { errorCode, successCode } from 'src/payload/response/DataResponse';
-import { userDto } from '../DTO/user.dto';
+import { Response } from 'express';
+
 @Injectable()
-export class UserService {
+export class CastService {
     private prisma: PrismaClient = new PrismaClient();
 
-     async getUser(hoTen:string): Promise<userDto[]> {
-        return await this.prisma.user.findMany({
-            where:{
-                name:{
-                    contains: hoTen
-                }
-            }
-        });
-    }
-
-    async getAllUser(res: Response):Promise<any>{
+    async getAllCast(res: Response):Promise<any>{
         try{
-            let data = await this.prisma.user.findMany()
+            let data = await this.prisma.dien_vien.findMany()
             return successCode(res,"Successfully retrieved data",data);
         }
         catch(err){ 
@@ -27,9 +17,9 @@ export class UserService {
         }
     }
 
-    async createUser(res: Response,user:userDto):Promise<any>{
+    async createCast(res: Response,cast:castDTO):Promise<any>{
         try{
-            await this.prisma.user.create({data:user})
+            //await this.prisma.dien_vien.create({data:cast})
             return successCode(res,"Successful data generation!",null);
         }
         catch(err){
@@ -38,9 +28,9 @@ export class UserService {
         }
     }
 
-    async deleteUser(res: Response,idParam:any):Promise<any>{
+    async deleteCast(res: Response,idParam:any):Promise<any>{
         try{
-            await this.prisma.user.delete({where:{
+            await this.prisma.dien_vien.delete({where:{
                 id:Number(idParam)
             }});;
             return successCode(res,"Delete data successfully!",null);
@@ -51,11 +41,11 @@ export class UserService {
         }
     }
 
-    async updateUser(res: Response,idParam:string,user:userDto):Promise<any>{
+    async updateCast(res: Response,idParam:string,cast:castDTO):Promise<any>{
         try{
-            await this.prisma.user.update({where:{
-                id:Number(idParam)
-            },data:user})
+            // await this.prisma.dien_vien.update({where:{
+            //     id:Number(idParam)
+            // },data:cast})
             return successCode(res,"Update data successfully",null);
         }
         catch(err){
@@ -64,9 +54,9 @@ export class UserService {
         }
     }
 
-    async getDetailUser(res: Response,idParam:number):Promise<any>{
+    async getDetailCast(res: Response,idParam:number):Promise<any>{
         try{
-            let data = await this.prisma.user.findMany({
+            let data = await this.prisma.dien_vien.findMany({
                 where:{
                     id:Number(idParam)
                 }
@@ -78,11 +68,11 @@ export class UserService {
         }
     }
 
-    async searchUser(res: Response,key:string):Promise<any>{
+    async searchCast(res: Response,key:string):Promise<any>{
         try{
-            let data = await this.prisma.user.findMany({
+            let data = await this.prisma.dien_vien.findMany({
                 where:{
-                    name:{
+                    ten_dienvien:{
                         contains:key
                     }
                 }
