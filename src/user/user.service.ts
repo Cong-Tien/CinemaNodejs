@@ -7,7 +7,7 @@ import { userDto } from '../DTO/user.dto';
 export class UserService {
     private prisma: PrismaClient = new PrismaClient();
 
-     async getUser(hoTen:string): Promise<userDto[]> {
+     async getUser(hoTen:string): Promise<any> {
         return await this.prisma.user.findMany({
             where:{
                 name:{

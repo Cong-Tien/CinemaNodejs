@@ -12,7 +12,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
   async validate(token: any) {
-      //throw new HttpException("khong co quyen",500)
+    console.log("object");
+      //throw new HttpException("You do not to this api",500)
     // thông tin giải mã của token khi xác minh thành công
     return token;
   }

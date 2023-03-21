@@ -11,6 +11,7 @@ import {
   IsPhoneNumber,
   IsStrongPassword
 } from 'class-validator';
+import { Role } from "src/model/role.enum";
 
 export class userDto {
   @IsString()
@@ -27,9 +28,31 @@ export class userDto {
   email: string | null
   access_token: string | null
   diem_tich_luy: number | null
-  type_token: string | null
+  type_token: "user"
   refresh_token: string | null
   loai_tk: string | null
+}
+
+class User {
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(5)
+  @ApiProperty()
+  name: string;
+  @IsStrongPassword()
+  password: string
+  ngay_sinh: string | null
+  // @IsPhoneNumber()
+  sdt: string | null
+  @IsEmail()
+  email: string | null
+  access_token: string | null
+  diem_tich_luy: number | null
+  type_token: "user"
+  refresh_token: string | null
+  loai_tk: string | null
+  // ...other properties
+  roles: Role[];
 }
 
 export class userLoginDto {

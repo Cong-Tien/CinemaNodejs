@@ -25,7 +25,18 @@ export class AuthService {
             if(checkEmail){
                 let checkPass = this.bcrypt.compareSync(user.password,checkEmail.password)
                 if(checkPass){
-                    return successCode(res,"Logged in successfully",null);
+                    let token = this.jwtService
+                                    .sign({data:{user:checkEmail.email, typeToken: checkEmail.type_token}},
+                                    {secret:this.config.get("SECRET_KEY"),
+                                    expiresIn:"5m"})
+                    checkEmail.access_token = token;
+                    let data = await this.prisma.user.update({
+                        where: {
+                            id: checkEmail.id
+                        },
+                        data: checkEmail
+                    })
+                    return successCode(res,"Logged in successfully",data);
                 }
                 else{
                     return failCode(res,"Password incorrect!");
@@ -41,7 +52,7 @@ export class AuthService {
             console.log(err);
             return errorCode(res,"Error Backend")
         }
-        //let token = this.jwtService.sign({data:"hello"},{secret:this.config.get("SECRET_KEY"),expiresIn:"5m"})
+        
     }
     async signup(res:Response,user: userDto):Promise<any>{
         try{
@@ -54,6 +65,12 @@ export class AuthService {
                 return failCode(res,"Email already exists!");
             }
             user.password = this.bcrypt.hashSync(user.password,10);
+            user.type_token="user"
+            let token = this.jwtService
+                                    .sign({data:{user:user.email,typeToken: user.type_token}},
+                                    {secret:this.config.get("SECRET_KEY"),
+                                    expiresIn:"5m"})
+            user.access_token=token
             //console.log(user);
             let register = await this.prisma.user.create({data:user})
             //  let register = await this.prisma.user.findFirst({

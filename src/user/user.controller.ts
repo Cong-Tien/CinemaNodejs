@@ -35,6 +35,7 @@ class BodyApp {
   hoTen: String;
 }
 @ApiTags('User')
+@UseGuards(AuthGuard("jwt"))
 @Controller('/user')
 export class UserController {
   constructor(

@@ -1,15 +1,31 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, Param, Post, Put, Query, Req, Res, UseGuards } from '@nestjs/common';
 import { ShowtimeService } from './showtime.service';
-import { Response } from 'express';
+import { Request, Response } from 'express';
+import { AuthGuard } from '@nestjs/passport';
+import { failCode } from 'src/payload/response/DataResponse';
+
+import { Role } from 'src/model/role.enum';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { Roles } from 'src/auth/decorators/roles.decorator';
 
 @Controller('showtime')
 export class ShowtimeController {
     constructor(private showtimeService: ShowtimeService){}
 
+    @Roles(Role.USER)
+    @UseGuards(AuthGuard("jwt"),RolesGuard)   
     @Get("/ticketByShowtime/:idShowtime")
-    getListTicketByShowtime(@Res() res: Response,
+    getListTicketByShowtime(@Req() req: Request,@Res() res: Response,
             @Param("idShowtime") idShowtime:number): Promise<any> {
-        return this.showtimeService.getListTicketByShowtime(res,idShowtime)
+               try{
+                let data = req.user; // lấy dữ liệu decode token
+                console.log(data);
+                return this.showtimeService.getListTicketByShowtime(res,idShowtime)
+               }
+               catch(err){
+                // throw new HttpException("you do not have enough access to this api",500)
+                failCode(res,"You do not have enough access to this API!")
+               } 
     }
 
     @Get()
