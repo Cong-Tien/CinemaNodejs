@@ -1,5 +1,6 @@
 
 interface ticketDTO {
+  id: number
     loai_ve:number
     ngay_mua_ve: string
     ghe:string

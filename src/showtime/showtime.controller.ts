@@ -6,6 +6,12 @@ import { Response } from 'express';
 export class ShowtimeController {
     constructor(private showtimeService: ShowtimeService){}
 
+    @Get("/ticketByShowtime/:idShowtime")
+    getListTicketByShowtime(@Res() res: Response,
+            @Param("idShowtime") idShowtime:number): Promise<any> {
+        return this.showtimeService.getListTicketByShowtime(res,idShowtime)
+    }
+
     @Get()
     getAllShowtime(@Res() res: Response): Promise<any> {
         return this.showtimeService.getAllShowtime(res)

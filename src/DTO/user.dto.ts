@@ -1,9 +1,29 @@
 import { ApiProperty } from "@nestjs/swagger";
+import {
+  IsBoolean,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  MaxLength,
+  MinLength,
+  IsNumber,
+  IsEmail,
+  IsPhoneNumber,
+  IsStrongPassword
+} from 'class-validator';
 
-export interface userDto {
-  name: string
+export class userDto {
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(5)
+  @ApiProperty()
+  name: string;
+  @IsStrongPassword()
+  password: string
   ngay_sinh: string | null
+  // @IsPhoneNumber()
   sdt: string | null
+  @IsEmail()
   email: string | null
   access_token: string | null
   diem_tich_luy: number | null
@@ -11,6 +31,15 @@ export interface userDto {
   refresh_token: string | null
   loai_tk: string | null
 }
+
+export class userLoginDto {
+  @IsStrongPassword()
+  password: string
+  @IsEmail()
+  @IsNotEmpty()
+  email: string | null
+}
+
 
 export class fileDto {
   fieldname:string

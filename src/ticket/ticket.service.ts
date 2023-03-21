@@ -7,6 +7,41 @@ import { Response } from 'express';
 export class TicketService {
     private prisma: PrismaClient = new PrismaClient();
 
+    async buyTicket(res: Response,listTicket: ticketDTO[],idUser: number):Promise<any>{
+        try{
+            listTicket.map( async (ticket,index) =>  {
+                const { id, ...ticketRest } = ticket;
+                ticketRest.da_dat="sold";
+                ticketRest.trang_thai=2;
+                ticketRest.id_user=Number(idUser);
+                console.log(ticket);
+                await this.prisma.ticket.update({where:{
+                    id:Number(ticket.id)
+                },data:ticketRest})
+            })
+            
+            return successCode(res,"Successful ticket purchase!",null);
+        }
+        catch(err){
+            console.log(err);
+            return errorCode(res,"Error Backend")
+        }
+    }
+
+    async getListTicketByUser(res: Response,idUser: number):Promise<any>{
+        try{
+            let data = await this.prisma.ticket.findMany({
+                where:{
+                    id_user:Number(idUser)
+                }
+            })
+            return successCode(res,"Successfully retrieved data",data);
+        }
+        catch(err){ 
+            return errorCode(res,"Error Backend")
+        }
+    }
+
     async getAllTicket(res: Response):Promise<any>{
         try{
             let data = await this.prisma.ticket.findMany()

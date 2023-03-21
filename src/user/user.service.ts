@@ -17,6 +17,20 @@ export class UserService {
         });
     }
 
+    async getListTicketByUser(res: Response,idUser: number):Promise<any>{
+        try{
+            let data = await this.prisma.ticket.findMany({
+                where:{
+                    id_user:Number(idUser)
+                }
+            })
+            return successCode(res,"Successfully retrieved data",data);
+        }
+        catch(err){ 
+            return errorCode(res,"Error Backend")
+        }
+    }
+
     async getAllUser(res: Response):Promise<any>{
         try{
             let data = await this.prisma.user.findMany()

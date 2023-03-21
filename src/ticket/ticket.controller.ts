@@ -6,6 +6,16 @@ import { Response } from 'express';
 export class TicketController {
     constructor(private ticketService: TicketService){}
 
+    @Post("/buy")
+    buyTicket(@Res() res: Response, @Body() listTicket:ticketDTO[],@Query("idUser") idUser: number): Promise<any> {
+        return this.ticketService.buyTicket(res,listTicket,idUser)
+    }
+
+    @Post("/ticketsUser")
+    getListTicketByUser(@Res() res: Response,@Query("idUser") idUser: number): Promise<any> {
+        return this.ticketService.getListTicketByUser(res,idUser)
+    }
+
     @Get()
     getAllTicket(@Res() res: Response): Promise<any> {
         return this.ticketService.getAllTicket(res)

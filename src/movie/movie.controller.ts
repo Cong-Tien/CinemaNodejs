@@ -7,6 +7,10 @@ import { MovieService } from './movie.service';
 export class MovieController {
     constructor(private movieService: MovieService){}
 
+    @Get("/getShowtimeByMovie/:idMovie")
+    getListShowtimeBayMovie(@Res() res: Response,@Param("idMovie") idMovie:number): Promise<any> {
+        return this.movieService.getListShowtimeBayMovie(res,idMovie)
+    }
     @Get()
     getAllMovie(@Res() res: Response): Promise<any> {
         return this.movieService.getAllMovie(res)

@@ -88,6 +88,11 @@ export class UserController {
     return file;
   }
 
+  @Post("/ticketsUser")
+    getListTicketByUser(@Res() res: Response,@Query("idUser") idUser: number): Promise<any> {
+        return this.userService.getListTicketByUser(res,idUser)
+    }
+
   @Get()
     getAllUser(@Res() res: Response): Promise<any> {
         return this.userService.getAllUser(res)

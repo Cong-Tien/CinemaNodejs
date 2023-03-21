@@ -8,6 +8,31 @@ import { movieDTO } from 'src/DTO/movie.dto';
 export class MovieService {
     private prisma: PrismaClient = new PrismaClient();
 
+    async getListShowtimeBayMovie(res: Response, idMovie:number):Promise<any>{
+        try{
+            let data = await this.prisma.he_thong_rap.findMany({
+                include:{
+                    cum_rap:{
+                        include:{
+                            show_time:{
+                                where:{
+                                    ma_phim:Number(idMovie)
+                                },
+                                include:{
+                                    phim:true
+                                }
+                            }
+                        }
+                    }
+                }
+            })
+            return successCode(res,"Successfully retrieved data",data);
+        }
+        catch(err){ 
+            return errorCode(res,"Error Backend")
+        }
+    }
+
     async getAllMovie(res: Response):Promise<any>{
         try{
             let data = await this.prisma.phim.findMany()

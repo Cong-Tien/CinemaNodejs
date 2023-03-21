@@ -9,7 +9,19 @@ export class SystemCinemaService {
 
     async getAllSystemCinema(res: Response):Promise<any>{
         try{
-            let data = await this.prisma.he_thong_rap.findMany()
+            let data = await this.prisma.he_thong_rap.findMany({
+                include:{
+                    cum_rap:{
+                        include:{
+                            show_time:{
+                                include:{
+                                    phim:true
+                                }
+                            }
+                        }
+                    }
+                }
+            })
             return successCode(res,"Successfully retrieved data",data);
         }
         catch(err){ 

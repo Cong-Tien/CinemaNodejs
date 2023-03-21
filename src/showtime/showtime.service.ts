@@ -7,9 +7,33 @@ import { Response } from 'express';
 export class ShowtimeService {
     private prisma: PrismaClient = new PrismaClient();
 
+    async getListTicketByShowtime(res: Response, idShowtime:number):Promise<any>{
+        try{
+            let data = await this.prisma.show_time.findMany({
+                where:{
+                    id_showtime:Number(idShowtime)
+                },
+                include:{
+                    phim:true,
+                    ticket:true
+                }
+            })
+            return successCode(res,"Successfully retrieved data",data);
+        }
+        catch(err){ 
+            return errorCode(res,"Error Backend")
+        }
+    }
+
+
     async getAllShowtime(res: Response):Promise<any>{
         try{
-            let data = await this.prisma.show_time.findMany()
+            let data = await this.prisma.show_time.findMany({
+                include:{
+                    phim:true,
+                    ticket:true
+                }
+            })
             return successCode(res,"Successfully retrieved data",data);
         }
         catch(err){ 
