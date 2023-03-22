@@ -7,7 +7,9 @@ import { failCode } from 'src/payload/response/DataResponse';
 import { Role } from 'src/model/role.enum';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Roles } from 'src/auth/decorators/roles.decorator';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags("shotime")
 @Controller('showtime')
 export class ShowtimeController {
     constructor(private showtimeService: ShowtimeService){}

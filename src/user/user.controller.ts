@@ -25,7 +25,8 @@ import { ApiBody } from '@nestjs/swagger';
 import { ApiBearerAuth } from '@nestjs/swagger/dist';
 import { Request, Response } from 'express';
 import { diskStorage } from 'multer';
-import { fileDto, FileUploadDto, userDto } from '../DTO/user.dto';
+import { fileDto, FileUploadDto } from 'src/DTO/uploadDTO.dto';
+import { userDto } from '../DTO/user.dto';
 import { UserService } from './user.service';
 
 class BodyApp {

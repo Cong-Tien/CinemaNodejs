@@ -18,13 +18,19 @@ export class userDto {
   @IsNotEmpty()
   @MinLength(5)
   @ApiProperty()
+  @ApiProperty({description:"name",type: String})
   name: string;
   @IsStrongPassword()
+  @ApiProperty({description:"password",type: String})
   password: string
+  @ApiProperty({description:"birthDay",type: Date})
   ngay_sinh: string | null
   // @IsPhoneNumber()
+  @ApiProperty({description:"phone",type: Number})
   sdt: string | null
   @IsEmail()
+  @ApiProperty({description:"email",type: String})
+
   email: string | null
   access_token: string | null
   diem_tich_luy: number | null
@@ -38,12 +44,17 @@ class User {
   @IsNotEmpty()
   @MinLength(5)
   @ApiProperty()
+  @ApiProperty({description:"name",type: String})
   name: string;
   @IsStrongPassword()
+  @ApiProperty({description:"password",type: String})
   password: string
+  @ApiProperty({description:"birthDay",type: Date})
   ngay_sinh: string | null
   // @IsPhoneNumber()
+  @ApiProperty({description:"phone",type: Number})
   sdt: string | null
+  @ApiProperty({description:"email",type: String})
   @IsEmail()
   email: string | null
   access_token: string | null
@@ -56,20 +67,12 @@ class User {
 }
 
 export class userLoginDto {
-  @IsStrongPassword()
-  password: string
   @IsEmail()
   @IsNotEmpty()
+  @ApiProperty({description:"User or email",type: String})
   email: string | null
-}
 
-
-export class fileDto {
-  fieldname:string
-  originalname: string
-}
-
-export class FileUploadDto {
-  @ApiProperty({ type: 'string', format: 'binary' })
-  fileUpload: any;
+  @ApiProperty({description:"Password",type: Number})
+  @IsStrongPassword()
+  password: string
 }

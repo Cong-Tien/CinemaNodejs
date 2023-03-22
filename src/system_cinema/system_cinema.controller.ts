@@ -1,7 +1,9 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, Res } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { SystemCinemaService } from './system_cinema.service';
 
+@ApiTags("system cinema")
 @Controller('system-cinema')
 export class SystemCinemaController {
     constructor(private systemCinemaService: SystemCinemaService){}

@@ -1,7 +1,10 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Res } from '@nestjs/common';
 import { CastDetailService } from './cast_detail.service';
 import { Response } from 'express';
+import { ApiTags } from '@nestjs/swagger';
+import { castDetailDTO } from 'src/DTO/cast_detail.dto';
 
+@ApiTags("cast detail")
 @Controller('cast-detail')
 export class CastDetailController {
     constructor(private castDetailService: CastDetailService){}

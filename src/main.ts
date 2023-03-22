@@ -11,10 +11,10 @@ async function bootstrap() {
   app.use(express.static("*")) // định vị lại đường dẫn dể load tài nguyên
   app.useGlobalPipes(new ValidationPipe());
 
-  const config = new DocumentBuilder().setTitle("Swagger").addBearerAuth().build();
+  const config = new DocumentBuilder().setTitle("Swagger").setVersion("1000").addBearerAuth().build();
   const document = SwaggerModule.createDocument(app,config)
   
-  SwaggerModule.setup("/api",app,document)
+  SwaggerModule.setup("/swagger",app,document)
 
   await app.listen(3000);
 }

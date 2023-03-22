@@ -16,9 +16,10 @@ import { GenreDetailController } from './genre_detail/genre_detail.controller';
 import { CastDetailModule } from './cast_detail/cast_detail.module';
 import { GenreDetailService } from './genre_detail/genre_detail.service';
 import { GenreDetailModule } from './genre_detail/genre_detail.module';
+import { UploadModule } from './upload/upload.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({isGlobal:true}),UserModule, AuthModule, MovieModule, SystemCinemaModule, CinemaModule, ShowtimeModule, TicketModule, RoomModule, CastModule, GenreModule, CastDetailModule, GenreDetailModule],
+  imports: [ConfigModule.forRoot({isGlobal:true}),UserModule, AuthModule, MovieModule, SystemCinemaModule, CinemaModule, ShowtimeModule, TicketModule, RoomModule, CastModule, GenreModule, CastDetailModule, GenreDetailModule, UploadModule],
   controllers: [AppController, GenreDetailController],
   providers: [AppService, GenreDetailService],
 })

@@ -1,7 +1,10 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, Res } from '@nestjs/common';
 import { CinemaService } from './cinema.service';
 import { Response } from 'express';
+import { ApiTags } from '@nestjs/swagger';
+import { cinemaDTO } from 'src/DTO/cinema.dto';
 
+@ApiTags("cinema")
 @Controller('cinema')
 export class CinemaController {
     constructor(private cinemaService: CinemaService){}
