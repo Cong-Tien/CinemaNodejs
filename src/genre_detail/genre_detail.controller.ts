@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put, Res } from '@nestjs/co
 import { GenreDetailService } from './genre_detail.service';
 import { Response } from 'express';
 import { ApiTags } from '@nestjs/swagger';
+import { genredDetailDTO } from 'src/DTO/genre_detail.dto';
 
 @ApiTags("genre detail")
 @Controller('genre-detail')

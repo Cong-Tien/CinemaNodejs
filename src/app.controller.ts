@@ -1,5 +1,5 @@
 import { Body, Controller, Get ,HttpCode,Param,Query,Req} from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { AppService } from './app.service';
 
@@ -7,7 +7,7 @@ interface BodyApp {
   idBody: number,
   hoTen:string
 }
-
+@ApiBearerAuth()
 @ApiTags("app")
 @Controller("/api")
 export class AppController {

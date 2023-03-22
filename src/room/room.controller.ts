@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put, Query, Res } from '@ne
 import { RoomService } from './room.service';
 import { Response } from 'express';
 import { ApiTags } from '@nestjs/swagger';
+import { roomDTO } from 'src/DTO/room.dto';
 
 @ApiTags("room")
 @Controller('room')

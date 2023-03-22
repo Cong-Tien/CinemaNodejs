@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 import { errorCode, successCode } from 'src/payload/response/DataResponse';
 import { Response } from 'express';
+import { castDTO } from 'src/DTO/cast.dto';
 
 @Injectable()
 export class CastService {

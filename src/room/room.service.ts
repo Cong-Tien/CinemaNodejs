@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 import { Response } from 'express';
+import { roomDTO } from 'src/DTO/room.dto';
 import { errorCode, successCode } from 'src/payload/response/DataResponse';
 
 @Injectable()

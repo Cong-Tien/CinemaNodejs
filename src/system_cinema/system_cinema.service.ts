@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 import { Response } from 'express';
+import { systemCinemaDTO } from 'src/DTO/systemCinema.dto';
 import { errorCode, successCode } from 'src/payload/response/DataResponse';
 
 @Injectable()

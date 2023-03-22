@@ -2,7 +2,7 @@ import { Controller, Get, Post, UploadedFile, UseInterceptors } from '@nestjs/co
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { diskStorage } from 'multer';
-import { fileDto } from 'src/DTO/uploadDTO.dto';
+import { fileDto, FileUploadDto } from 'src/DTO/uploadDTO.dto';
 import { UploadService } from './upload.service';
 
 @ApiTags("upload")
@@ -10,11 +10,11 @@ import { UploadService } from './upload.service';
 export class UploadController {
     constructor(private uploadService : UploadService){}
 
-//     @ApiConsumes('multipart/form-data')
-//   @ApiBody({
-//     description: 'List of cats',
-//     type: FileUploadDto,
-//   })
+    @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    description: 'List of cats',
+    type: FileUploadDto,
+  })
   @UseInterceptors(
     FileInterceptor('fileUpload', {
       storage: diskStorage({

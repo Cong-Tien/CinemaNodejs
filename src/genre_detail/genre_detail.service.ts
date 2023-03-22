@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 import { errorCode, successCode } from 'src/payload/response/DataResponse';
 import { Response } from 'express';
+import { genredDetailDTO } from 'src/DTO/genre_detail.dto';
 
 @Injectable()
 export class GenreDetailService {

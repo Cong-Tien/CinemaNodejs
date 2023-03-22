@@ -1,19 +1,22 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, Res, UseGuards } from '@nestjs/common';
 import { TicketService } from './ticket.service';
 import { Response } from 'express';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ticketDTO } from 'src/DTO/ticket.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
 
 @ApiTags("ticket")
 @Controller('ticket')
 export class TicketController {
     constructor(private ticketService: TicketService){}
-
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard("jwt"),RolesGuard)   
     @Post("/buy")
     buyTicket(@Res() res: Response, @Body() listTicket:ticketDTO[],@Query("idUser") idUser: number): Promise<any> {
         return this.ticketService.buyTicket(res,listTicket,idUser)
     }
-
+    @ApiBearerAuth()
     @Post("/ticketsUser")
     getListTicketByUser(@Res() res: Response,@Query("idUser") idUser: number): Promise<any> {
         return this.ticketService.getListTicketByUser(res,idUser)
@@ -23,7 +26,7 @@ export class TicketController {
     getAllTicket(@Res() res: Response): Promise<any> {
         return this.ticketService.getAllTicket(res)
     }
-
+    @ApiBearerAuth()
     @Post()
     createTicket(@Res() res: Response,@Body() ticket: ticketDTO): object{
         return this.ticketService.createTicket(res,ticket)

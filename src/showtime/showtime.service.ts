@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 import { errorCode, successCode } from 'src/payload/response/DataResponse';
 import { Response } from 'express';
+import { showtimeDTO } from 'src/DTO/shotime.dto';
 
 @Injectable()
 export class ShowtimeService {
